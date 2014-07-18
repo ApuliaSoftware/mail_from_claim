@@ -1,4 +1,4 @@
-mail_from_phonecall
+mail_from_claim
 ===================
 
-Send mail from phonecall
+Send mail from claim
