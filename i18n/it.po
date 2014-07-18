@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* mail_from_phonecall
+#	* mail_from_claim
 #
 msgid ""
 msgstr ""
@@ -15,13 +15,13 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: mail_from_phonecall
-#: view:crm.phonecall:0
+#. module: mail_from_claim
+#: view:crm.claim:0
 msgid "Send Mail"
 msgstr "Invia E-mail"
 
-#. module: mail_from_phonecall
-#: model:ir.model,name:mail_from_phonecall.model_crm_phonecall
-msgid "Phonecall"
-msgstr "Chiamata"
+#. module: mail_from_claim
+#: model:ir.model,name:mail_from_claim.model_crm_claim
+msgid "Claim"
+msgstr "Riclami"
 

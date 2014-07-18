@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Andre@ (<a.gallina@cgsoftware.it>)
+#    Copyright (C) 2014 Apulia Software
+#    Authors: Francesco Apruzzese <f.apruzzese@apuliasoftware.it>
 #    All Rights Reserved
 #
 #    This program is free software: you can redistribute it and/or modify
