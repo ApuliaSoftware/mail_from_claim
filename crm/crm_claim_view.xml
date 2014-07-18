@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!-- INHERIT TREE VIEW  -->
+    
+    <record id="crm_claim_tree_mail_inherit" model="ir.ui.view">
+        <field name="name">crm.claim.tree.mail</field>
+        <field name="model">crm.claim</field>
+        <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <button string="Send Mail"
+                    name="action_send_mail"
+                    icon="terp-mail-"
+                    type="object" />
+            </field>
+        </field>
+    </record>
+
+    <!-- INHERIT FORM VIEW -->
+
+    <record id="crm_case_claims_form_view_inherit" model="ir.ui.view">
+        <field name="name">crm.case.claims.form.mail</field>
+        <field name="model">crm.claim</field>
+        <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+        <field name="arch" type="xml">
+            <button name="case_close" position="after">
+                <button string="Send Mail"
+                    name="action_send_mail"
+                    type="object" />
+            </button>
+        </field>
+    </record>
+
+</data>
+</openerp>
