@@ -31,6 +31,11 @@ CLAIM_STATES = {
     'done': 'Chiuso',
     }
 
+CLAIM_TYPE_ACTION = {
+    'correction': 'Correttiva',
+    'prevention': 'Preventiva',
+    }
+
 class crm_claim(osv.osv):
 
     _inherit = "crm.claim"
@@ -52,22 +57,36 @@ class crm_claim(osv.osv):
         subject = '[%s] Segnalazione del %s' % (CLAIM_STATES[claim.state],
                                                 claim.date or '')
         body = ''
-        if claim.name:
-            body = '%s<b>Oggetto</b>: %s<br />' % (body, claim.name)
-        if claim.date:
-            body = '%s<b>Data</b>: %s<br />' % (body, claim.date)
-        if claim.state:
-            body = '%s<b>Stato</b>: %s<br />' % (body, claim.state)
-        if claim.date_action_next:
-            body = '%s<b>Data Prossima Azione</b>: %s<br />' % (body, claim.date_action_next)
-        if claim.action_next:
-            body = '%s<b>Prossima Azione</b>: %s<br />' % (body, claim.action_next)
-        if claim.date_closed:
-            body = '%<b>sData Chiusura</b>: %s<br />' % (body, claim.date_closed)
-        if claim.cause:
-            body = '%s<b>Cause</b>: %s<br />' % (body, claim.cause)
-        if claim.resolution:
-            body = '%s<b>Risoluzione</b>: %s<br />' % (body, claim.resolution)
+        # ----- Second value in tupla set if the field is a relation field type
+        # ----- Third value in tupla set iof the real value of field is in a dict
+        fields_list = {'name': ('Oggetto', False, {}),
+                       'date': ('Data', False, {}),
+                       'date_deadline': ('Data Scadenza', False, {}),
+                       'state': ('Stato', False, CLAIM_STATES),
+                       'partner_id': ('Segnalato da', True, {}),
+                       'partner_phone': ('Telefono', False, {}),
+                       'email_from': ('Email', False, {}),
+                       'user_fault': ('Responsabile Problematiche', False, {}),
+                       'description': ('Descrizione Reclamo', False, {}),
+                       'date_action_next': ('Data Prossima Azione', False, {}),
+                       'action_next': ('Prossima Azione', False, {}),
+                       'date_closed': ('Data Chiusura', False, {}),
+                       'cause': ('Cause', False, {}),
+                       'type_action': ('Azione risolutiva', False,
+                                       CLAIM_TYPE_ACTION),
+                       'resolution': ('Risoluzione', False, {}),
+                       }
+        for fl in fields_list:
+            if claim[fl]:
+                if fields_list[fl][1]:
+                    content = claim[fl]['name']
+                else:
+                    content = claim[fl]
+                    if fields_list[fl][2]:
+                        if content in fields_list[fl][2].keys():
+                            content = fields_list[fl][2][content]
+                body = '%s<b>%s</b>: %s<br />' % (body, fields_list[fl][0],
+                                                  content)
         context.update({
             'default_model': 'crm.claim',
             'default_res_id': ids[0],
